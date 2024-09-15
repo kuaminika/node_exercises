@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <div class=" container">
+        <button id="btnForPiped" onclick="doBtnForPiped(event)"> launchPiped</button>
+        <button id="btnForProblem"> launchProblem</button>
+
+        <div id="piped">
+
+        </div>
+        <div id="nonPiped">
+
+        </div>
+    </div>
+
+    <script>
+        const urlForPiped = "http://localhost:3000/useWithPipe";
+        const urlForNonPiped = "http://localhost:3000/useProplem";
+        const piped = document.getElementById("piped");
+
+        function doBtnForPiped(e)
+        {
+            console.log(e)
+         /*
+         // it fails using fetch
+         fetch(urlForPiped).then(r=>r.text()).then(data=>{
+                 console.log(data);   
+                piped.innerHTML = data
+              }) */
+
+
+        
+                fetch(urlForPiped)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => {
+                    const decoder = new TextDecoder('utf-8');
+                    const text = decoder.decode(arrayBuffer);
+
+                    // Process the text data in chunks
+                    const chunkSize = 1024;
+                    for (let i = 0; i < text.length; i += chunkSize) {
+                    const chunk = text.substring(i, i + chunkSize);
+                    // Process the chunk here
+                    console.log(chunk);
+                    
+                    const chunkP = document.createElement("p");
+                    
+                    chunkP.innerText = chunk;
+                    piped.appendChild(chunkP);
+
+
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            
+
+
+ /*
+              const mediaSource = new MediaSource(urlForPiped);
+              const sourceBuffer = mediaSource.addSourceBuffer('utf-8');
+
+              const textData = new TextEncoder().encode(text);
+              sourceBuffer.appendBuffer(textData);
+
+              mediaSource.addEventListener("sourceopen",ev=>{
+                console.log(ev);
+
+              });
+
+              mediaSource.addEventListener("sourceended",ev=>{
+
+                console.log("source ended",ev)
+              });
+          */
+              
+
+        }
+
+    </script>
+
+
+</body>
+</html>
