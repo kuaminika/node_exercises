@@ -2,3 +2,5 @@
 /bigfileExercise/contentHolder/*
 /bigfileExercise/node_modules/*
 cpuIntensive/node_modules/*
+movieFileExcercise/server/node_modules/*
+movieFileExcercise/server/content/*

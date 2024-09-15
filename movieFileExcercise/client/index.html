@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie file Exercise</title>
+    <style>
+        .container{
+            margin: 0  15px;
+        }
+
+        .w-50
+        {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="w-50">
+            <button id="playBtn">play</button>
+            <video id="videoTag" controls preload="auto" width="600" type="video/mp4" src="http://localhost:3000/getMovie"></video>
+        </div>
+    </div>
+
+    <script>
+         fetch("http://localhost:3000/test")
+        .then(r=>r.json())
+        .then(console.log)
+
+
+
+        const videoTag = document.getElementById("videoTag");
+
+        const playBtn = document.getElementById("playBtn");
+        const pauseBtn = document.getElementById("pauseBtn");
+
+        videoTag.onloadeddata = ev=>{
+            const {currentTime} = ev;
+            console.log("currentTime",ev.target.currentTime)
+            videoTag.currentTime = 50;
+
+        }
+
+
+        videoTag.addEventListener("timeupdate", (ev) => {
+            const {currentTime} = ev.target;
+  console.log("The currentTime attribute has been updated. Again.");
+  console.log("currentTime",currentTime);
+});
+        videoTag.ondrag = ev=>{
+            const {currentTime} = ev.target;
+            console.log("currentTime",currentTime);
+        }
+
+        videoTag.ondragend = ev=>{
+            const {currentTime} = ev.target;
+            console.log("currentTime",currentTime);
+        }
+
+        videoTag.onseeking = ev=>{
+           // videoTag.currentTime = videoTag.currentTime *0.5;
+
+        }
+        
+        playBtn.onclick = (ev)=>{
+
+            videoTag.play();
+        }
+    </script>
+</body>
+</html>
