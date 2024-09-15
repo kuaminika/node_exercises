@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" name="amount" id="amount" value="40">
+    <button> fetch</button>
+
+    <script>
+
+        const fibonacciNumber = document.querySelector("#amount").value;
+        const button = document.querySelector("button");
+        const secondsForTimeout  = 5*1000;
+        const interval = 100;
+        console.log(fibonacciNumber,button)
+        button.onclick = (event=>{
+
+            console.log(fibonacciNumber)
+
+
+            const intervalId =  setInterval(doDataFetch,interval);
+            setTimeout(()=>{
+                console.log(`clearing interval`,intervalId);
+                clearInterval(intervalId);
+            },secondsForTimeout);
+         
+
+        });
+
+
+        function handleFetchError(err){
+            console.warn(`somehting went wrong with the fetch`,err);
+
+        }
+        let requestNumber = 0;
+        function doDataFetch()
+        {
+           
+            let url = `http://localhost:3000/fib?number=${fibonacciNumber}&requestNumber=${requestNumber++}`;
+            console.log("sending request",url);
+            fetch(url)
+            .catch(handleFetchError)
+            .then(r=>r.json())
+            .then(data=>{
+
+                console.log("Response:",data);
+            });
+
+        }
+    </script>
+</body>
+</html>
