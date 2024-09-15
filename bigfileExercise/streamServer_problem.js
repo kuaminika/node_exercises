@@ -3,7 +3,8 @@ const server = http.createServer();
 const port = 3000;
 
 const fs = require("fs");
-// the stream server is going to have a request that will read the file
+// the stream server is going to have a request that will read the file. 
+// it's important to note that the big file is currently taking a while to download with a curl call. 
 server.on("request",(req,res)=>{
 
     fs.readFile("contentHolder/bigFile1726201523573.txt",function(err,fileContent){
