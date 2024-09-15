@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/kuaminika/node_exercises/issues"
   },
-  "homepage": "https://github.com/kuaminika/node_exercises#readme"
+  "homepage": "https://github.com/kuaminika/node_exercises#readme",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }
